@@ -6,7 +6,7 @@ function Introduction () {
         <div className="introduction-container">
             <div className="start">
                 <div className="title-page">
-                    <h1>Country Quiz</h1>
+                    <h1>Commit de prueba que todo esta funcionando</h1>
                 </div>
                 <div className="start-button">
                     <button type="button">Start</button>
