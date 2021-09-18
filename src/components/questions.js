@@ -94,20 +94,44 @@ function Questions() {
         }
     }
 
-        const optionSelectedSwitchStyle1 = () => {
+    const cleanOptionSelectedVisualEffect = () => {
+        document.getElementById('answers-items-1').classList.remove('selected')
+        document.getElementById('answers-items-2').classList.remove('selected')
+        document.getElementById('answers-items-3').classList.remove('selected')
+        document.getElementById('answers-items-4').classList.remove('selected')
+    }
+
+
+        const optionSelectedSwitchStyle1 = (e) => {
             dispatch(setCheck(option1))
+            document.getElementById('answers-items-1').classList.add('selected')
+            document.getElementById('answers-items-2').classList.remove('selected')
+            document.getElementById('answers-items-3').classList.remove('selected')
+            document.getElementById('answers-items-4').classList.remove('selected')
         }
 
         const optionSelectedSwitchStyle2 = () => {
             dispatch(setCheck(option2))
+            document.getElementById('answers-items-2').classList.add('selected')
+            document.getElementById('answers-items-1').classList.remove('selected')
+            document.getElementById('answers-items-3').classList.remove('selected')
+            document.getElementById('answers-items-4').classList.remove('selected')
         }
 
         const optionSelectedSwitchStyle3 = () => {
             dispatch(setCheck(option3))
+            document.getElementById('answers-items-3').classList.add('selected')
+            document.getElementById('answers-items-1').classList.remove('selected')
+            document.getElementById('answers-items-2').classList.remove('selected')
+            document.getElementById('answers-items-4').classList.remove('selected')
         }
 
         const optionSelectedSwitchStyle4 = () => {
             dispatch(setCheck(option4))
+            document.getElementById('answers-items-4').classList.add('selected')
+            document.getElementById('answers-items-1').classList.remove('selected')
+            document.getElementById('answers-items-2').classList.remove('selected')
+            document.getElementById('answers-items-3').classList.remove('selected')
         }
 
 

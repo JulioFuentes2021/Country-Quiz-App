@@ -1,8 +1,11 @@
 import React from 'react';
 import './styles/questions.css';
 
-const Board = (props) => (
-    <div className="app-container">
+const Board = (props) => {
+
+
+    return (
+            <div className="app-container">
                 <div>
                     <div className="title">
                             <h1>Country Quiz</h1>
@@ -29,7 +32,7 @@ const Board = (props) => (
                                         <p>{props.option2}</p>
                                     </div>
                                 </div>
-                                <div className="answers-items" onClick={props.optionSelectedSwitchStyle3}>
+                                <div className="answers-items" id="answers-items-3" onClick={props.optionSelectedSwitchStyle3}>
                                     <div className="id-answer">
                                         <p>C</p>
                                     </div>
@@ -37,7 +40,7 @@ const Board = (props) => (
                                         <p>{props.option3}</p>
                                     </div>
                                 </div>
-                                <div className="answers-items" onClick={props.optionSelectedSwitchStyle4}>
+                                <div className="answers-items" id="answers-items-4" onClick={props.optionSelectedSwitchStyle4}>
                                     <div className="id-answer">
                                         <p>D</p>
                                     </div>
@@ -58,6 +61,7 @@ const Board = (props) => (
                     </div>
                 </div>
             </div>
-);
+    )
+};
 
 export default Board;
