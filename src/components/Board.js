@@ -1,8 +1,20 @@
 import React from 'react';
 import './styles/questions.css';
+import { useSelector } from 'react-redux';
+import { useEffect } from 'react';
 
 const Board = (props) => {
+    // console.log('capital',useSelector(countries => countries.countries.capital))
 
+    useEffect(() => {
+        document.getElementById('next').setAttribute('disabled','');
+    },[])
+
+    const check = useSelector(countries => countries.countries.check);
+
+    if (!!check) {
+        document.getElementById('next').removeAttribute('disabled');
+    }
 
     return (
             <div className="app-container">
@@ -50,11 +62,16 @@ const Board = (props) => {
                                 </div>
                             </div>
                             <div className="send-container">
-                                <div className="confirm">
-                                    {props.check}
-                                </div>
                                 <div className="next-container">
-                                    <button type="button" className="next" onClick={props.checkIfTheAnswerIsCorrect}>Next</button>
+                                    <button
+                                        
+                                        id="next"
+                                        type="button"
+                                        className={!!check ? 'next':'next disable'}
+                                        onClick={props.checkIfTheAnswerIsCorrect}
+                                    >
+                                        Next
+                                    </button>
                                 </div>
                             </div>
                         </div>
