@@ -1,7 +1,6 @@
 import React from 'react';
 import ResultImage from './images/winner.svg';
 import './styles/results.css';
-import {Link} from 'react-dom';
 
 class Results extends React.Component {
 
@@ -28,7 +27,7 @@ class Results extends React.Component {
                     </div>
                     <div className="results-info-container">
                         <div className="image-result">
-                            <img src={ResultImage} alt="Image" />
+                            <img src={ResultImage} alt="Results" />
                         </div>
                         <div className="results-items">
                             <div className="item-title-result">

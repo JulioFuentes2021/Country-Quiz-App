@@ -1,0 +1,63 @@
+import React from 'react';
+import './styles/questions.css';
+
+const Board = (props) => (
+    <div className="app-container">
+                <div>
+                    <div className="title">
+                            <h1>Country Quiz</h1>
+                        </div>
+                    <div className="work-space">
+                        <div className="questions-container">
+                            <div className="api-question">
+                                <p>{props.capital} is the capital of</p>
+                            </div>
+                            <div className="answers">
+                                <div className='answers-items' id="answers-items-1" onClick={props.optionSelectedSwitchStyle1}>
+                                    <div className="id-answer">
+                                        <span>A</span>
+                                    </div>
+                                    <div className="option">
+                                        <p>{props.option1}</p>
+                                    </div>
+                                </div>
+                                <div className='answers-items' id="answers-items-2" onClick={props.optionSelectedSwitchStyle2}>
+                                    <div className="id-answer">
+                                        <p>B</p>
+                                    </div>
+                                    <div className="option">
+                                        <p>{props.option2}</p>
+                                    </div>
+                                </div>
+                                <div className="answers-items" onClick={props.optionSelectedSwitchStyle3}>
+                                    <div className="id-answer">
+                                        <p>C</p>
+                                    </div>
+                                    <div className="option">
+                                        <p>{props.option3}</p>
+                                    </div>
+                                </div>
+                                <div className="answers-items" onClick={props.optionSelectedSwitchStyle4}>
+                                    <div className="id-answer">
+                                        <p>D</p>
+                                    </div>
+                                    <div className="option">
+                                        <p>{props.option4}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="send-container">
+                                <div className="confirm">
+                                    {props.check}
+                                </div>
+                                <div className="next-container">
+                                    <button type="button" className="next" onClick={props.checkIfTheAnswerIsCorrect}>Next</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+);
+
+export default Board;
