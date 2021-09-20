@@ -37,7 +37,9 @@ function Questions() {
         loader,
     } = React.useContext(Context)
 
-
+    const [wrongSelection, setWrongSelection] = React.useState();
+    const [correctSelection, setCorrectSelection] = React.useState();
+    const [postitionOfTheSolution,setPostitionOfTheSolution] = React.useState()
 
     const dispatch = useDispatch()
 
@@ -79,28 +81,30 @@ function Questions() {
         return orderRounded
     }
 
+    const correctOptionSelected = (position) => {
+        setCorrectSelection(document.getElementById(`answers-items-${position}`))
+        console.log('se ejecuto')
+    }
+
     const apiRequestForUser = (position,value) => {
+        // setCorrectSelection(document.getElementById(`answers-items-${position}`))
         if (position === 1) {
             dispatch(changeOption1(value))
+            setPostitionOfTheSolution(1)
         }
         if (position === 2) {
             dispatch(changeOption2(value))
+            setPostitionOfTheSolution(2)
         }
         if (position === 3) {
             dispatch(changeOption3(value))
+            setPostitionOfTheSolution(3)
         }
         if (position === 4){
             dispatch(changeOption4(value))
+            setPostitionOfTheSolution(4)
         }
     }
-
-    const cleanOptionSelectedVisualEffect = () => {
-        document.getElementById('answers-items-1').classList.remove('selected')
-        document.getElementById('answers-items-2').classList.remove('selected')
-        document.getElementById('answers-items-3').classList.remove('selected')
-        document.getElementById('answers-items-4').classList.remove('selected')
-    }
-
 
         const optionSelectedSwitchStyle1 = (e) => {
             dispatch(setCheck(option1))
@@ -108,6 +112,10 @@ function Questions() {
             document.getElementById('answers-items-2').classList.remove('selected')
             document.getElementById('answers-items-3').classList.remove('selected')
             document.getElementById('answers-items-4').classList.remove('selected')
+            setWrongSelection(document.getElementById('answers-items-1'));
+            if (!correctSelection) {
+                correctOptionSelected(postitionOfTheSolution)
+            }
         }
 
         const optionSelectedSwitchStyle2 = () => {
@@ -116,6 +124,10 @@ function Questions() {
             document.getElementById('answers-items-1').classList.remove('selected')
             document.getElementById('answers-items-3').classList.remove('selected')
             document.getElementById('answers-items-4').classList.remove('selected')
+            setWrongSelection(document.getElementById('answers-items-2'));
+            if (!correctSelection) {
+                correctOptionSelected(postitionOfTheSolution)
+            }
         }
 
         const optionSelectedSwitchStyle3 = () => {
@@ -124,6 +136,10 @@ function Questions() {
             document.getElementById('answers-items-1').classList.remove('selected')
             document.getElementById('answers-items-2').classList.remove('selected')
             document.getElementById('answers-items-4').classList.remove('selected')
+            setWrongSelection(document.getElementById('answers-items-3'));
+            if (!correctSelection) {
+                correctOptionSelected(postitionOfTheSolution)
+            }
         }
 
         const optionSelectedSwitchStyle4 = () => {
@@ -132,6 +148,10 @@ function Questions() {
             document.getElementById('answers-items-1').classList.remove('selected')
             document.getElementById('answers-items-2').classList.remove('selected')
             document.getElementById('answers-items-3').classList.remove('selected')
+            setWrongSelection(document.getElementById('answers-items-4'));
+            if (!correctSelection) {
+                correctOptionSelected(postitionOfTheSolution)
+            }
         }
 
 
@@ -143,14 +163,20 @@ function Questions() {
         }
 
 
-        const checkIfTheAnswerIsCorrect = () => {
+        const checkIfTheAnswerIsCorrect = (e) => {
             if (country === check) {
+                setPostitionOfTheSolution('')
+                setCorrectSelection('')
                 fetchItems()
                 dispatch(setCheck(''))
                 console.log(document.querySelector('.option').parentNode)
             } else {
                 console.log('Fallastes papa')
-                dispatch(setShowResults(true))
+                console.log(wrongSelection)
+                console.log(correctSelection)
+                // dispatch(setShowResults(true))
+                wrongSelection.classList.add('wrong')
+                correctSelection.classList.add('selected')
                 console.log(points)
             }
         }
