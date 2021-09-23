@@ -43,35 +43,21 @@ function Questions() {
 
     const dispatch = useDispatch()
 
-
-
-    const fetchCountry = async () => {
-        const countrySearch = Math.random()*allCountriesArray.length-1//Posible error aqui
-        const country = Math.floor(countrySearch+1)
-        const url = `https://restcountries.eu/rest/v2/name/${allCountriesArray[country]}`;
-        const data = await fetch(url)
-        const response = await data.json()
-        console.log(response[0].name)
-        dispatch(setCapital(response[0].capital))
-        const value = response[0].name
-        dispatch(setCountry(value))
-        cleanOptions()
-        apiRequestForUser(defineOptionPosition(),value)
-    }
-
     const fetchItems = async () => {
-       dispatch( setLoader(true))
+        dispatch(setLoader(true))
         dispatch(setPoints(points+1))
-        const allCountries = 'https://restcountries.eu/rest/v2/all'
+        const allCountries = 'https://countriesnow.space/api/v0.1/countries/capital'
         const allCountriesData = await fetch(allCountries)
-        const allCountriesResponse = await allCountriesData.json()
-        const objeto = allCountriesResponse;
-        const objectChange = Object.entries(objeto)
-        objectChange.map((element) => (
-            allCountriesArray.push(element[1].name)
-        ))
+        const allCountriesArray = await allCountriesData.json()//Un array
+        const randomCountry = Math.floor(Math.random()*allCountriesArray.data.length-1+1)
+        dispatch(setCapital(allCountriesArray.data[randomCountry].capital))
+        dispatch(setCountry(allCountriesArray.data[randomCountry].name))
+        cleanOptions(allCountriesArray)
+        const value = allCountriesArray.data[randomCountry].name
+        apiRequestForUser(defineOptionPosition(),value)
+        console.log(value)
+        console.log(allCountriesArray.data[Math.floor(Math.random()*allCountriesArray.data.length-1+1)])
         
-        await fetchCountry()
         dispatch(setLoader(false))
     }
 
@@ -155,11 +141,12 @@ function Questions() {
         }
 
 
-        const cleanOptions = () => {
-            dispatch(changeOption1(allCountriesArray[Math.floor(Math.random()*allCountriesArray.length-1+1)]))
-            dispatch(changeOption2(allCountriesArray[Math.floor(Math.random()*allCountriesArray.length-1+1)]))
-            dispatch(changeOption3(allCountriesArray[Math.floor(Math.random()*allCountriesArray.length-1+1)]))
-            dispatch(changeOption4(allCountriesArray[Math.floor(Math.random()*allCountriesArray.length-1+1)]))
+        const cleanOptions = (allCountriesArray) => {
+            console.log('Este es:',allCountriesArray.data[2].name)
+            dispatch(changeOption1(allCountriesArray.data[Math.floor(Math.random()*allCountriesArray.data.length-1+1)].name))
+            dispatch(changeOption2(allCountriesArray.data[Math.floor(Math.random()*allCountriesArray.data.length-1+1)].name))
+            dispatch(changeOption3(allCountriesArray.data[Math.floor(Math.random()*allCountriesArray.data.length-1+1)].name))
+            dispatch(changeOption4(allCountriesArray.data[Math.floor(Math.random()*allCountriesArray.data.length-1+1)].name))
         }
 
 
