@@ -16,7 +16,7 @@ function ContextProvider(props) {
     const points = useSelector(countries => countries.countries.points)
     const showResults = useSelector(countries => countries.countries.showResults)
     const loader = useSelector(countries => countries.countries.loader)
-
+    const [error,setError] = React.useState(false);
     
     return (
         <Context.Provider value={{
@@ -31,6 +31,8 @@ function ContextProvider(props) {
             points,
             showResults,
             loader,
+            error,
+            setError
         }}>
             { props.children }
         </Context.Provider>

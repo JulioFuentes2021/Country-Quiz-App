@@ -2,9 +2,14 @@ import React from 'react';
 import './styles/questions.css';
 import { useSelector } from 'react-redux';
 import { useEffect } from 'react';
+import { Context } from '../LogicGlobal/variables';
+import { setShowResults } from '../redux/countryDuck';
+import { useDispatch } from 'react-redux';
+
 
 const Board = (props) => {
-    // console.log('capital',useSelector(countries => countries.countries.capital))
+    const dispatch = useDispatch()
+    const {error} = React.useContext(Context);
 
     useEffect(() => {
         document.getElementById('next').setAttribute('disabled','');
@@ -64,14 +69,14 @@ const Board = (props) => {
                             <div className="send-container">
                                 <div className="next-container">
                                     <button
-                                        
-                                        id="next"
-                                        type="button"
-                                        className={!!check ? 'next':'next disable'}
-                                        onClick={props.checkIfTheAnswerIsCorrect}
-                                    >
-                                        Next
-                                    </button>
+                                            
+                                            id="next"
+                                            type="button"
+                                            className={!!check ? 'next':'next disable'}
+                                            onClick={error ? props.setShowResults:props.checkIfTheAnswerIsCorrect}
+                                        >
+                                            { !error ? 'Next':'Results' }
+                                        </button>
                                 </div>
                             </div>
                         </div>

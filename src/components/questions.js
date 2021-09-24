@@ -35,6 +35,8 @@ function Questions() {
         points,
         showResults,
         loader,
+        setError,
+        error
     } = React.useContext(Context)
 
     const [wrongSelection, setWrongSelection] = React.useState();
@@ -56,8 +58,6 @@ function Questions() {
         const value = allCountriesArray.data[randomCountry].name
         apiRequestForUser(defineOptionPosition(),value)
         console.log(value)
-        console.log(allCountriesArray.data[Math.floor(Math.random()*allCountriesArray.data.length-1+1)])
-        
         dispatch(setLoader(false))
     }
 
@@ -73,7 +73,6 @@ function Questions() {
     }
 
     const apiRequestForUser = (position,value) => {
-        // setCorrectSelection(document.getElementById(`answers-items-${position}`))
         if (position === 1) {
             dispatch(changeOption1(value))
             setPostitionOfTheSolution(1)
@@ -142,7 +141,6 @@ function Questions() {
 
 
         const cleanOptions = (allCountriesArray) => {
-            console.log('Este es:',allCountriesArray.data[2].name)
             dispatch(changeOption1(allCountriesArray.data[Math.floor(Math.random()*allCountriesArray.data.length-1+1)].name))
             dispatch(changeOption2(allCountriesArray.data[Math.floor(Math.random()*allCountriesArray.data.length-1+1)].name))
             dispatch(changeOption3(allCountriesArray.data[Math.floor(Math.random()*allCountriesArray.data.length-1+1)].name))
@@ -161,14 +159,21 @@ function Questions() {
                 console.log('Fallastes papa')
                 console.log(wrongSelection)
                 console.log(correctSelection)
-                // dispatch(setShowResults(true))
                 wrongSelection.classList.add('wrong')
                 correctSelection.classList.add('selected')
                 console.log(points)
+                if (error) {
+                    dispatch(setShowResults(true))
+                }
+                setError(true)
             }
         }
 
-        if (showResults) {
+        const showResultsBtn = (booleanDate) => {
+            dispatch(setShowResults(true))
+        }
+
+        if (showResults === true && error === true) {
             return <Results correct={points} />
         }
 
@@ -189,6 +194,7 @@ function Questions() {
                 optionSelectedSwitchStyle4={optionSelectedSwitchStyle4}
                 check={check}
                 checkIfTheAnswerIsCorrect={checkIfTheAnswerIsCorrect}
+                setShowResults={showResultsBtn}
             />
     )
 }
