@@ -48,16 +48,20 @@ function Questions() {
     const fetchItems = async () => {
         dispatch(setLoader(true))
         dispatch(setPoints(points+1))
-        const allCountries = 'https://countriesnow.space/api/v0.1/countries/capital'
-        const allCountriesData = await fetch(allCountries)
-        const allCountriesArray = await allCountriesData.json()//Un array
-        const randomCountry = Math.floor(Math.random()*allCountriesArray.data.length-1+1)
-        dispatch(setCapital(allCountriesArray.data[randomCountry].capital))
-        dispatch(setCountry(allCountriesArray.data[randomCountry].name))
-        cleanOptions(allCountriesArray)
-        const value = allCountriesArray.data[randomCountry].name
-        apiRequestForUser(defineOptionPosition(),value)
-        console.log(value)
+        try {
+            const allCountries = 'https://countriesnow.space/api/v0.1/countries/capital'
+            const allCountriesData = await fetch(allCountries)
+            const allCountriesArray = await allCountriesData.json()
+            const randomCountry = Math.floor(Math.random()*allCountriesArray.data.length-1+1)
+            dispatch(setCapital(allCountriesArray.data[randomCountry].capital))
+            dispatch(setCountry(allCountriesArray.data[randomCountry].name))
+            cleanOptions(allCountriesArray)
+            const value = allCountriesArray.data[randomCountry].name
+            apiRequestForUser(defineOptionPosition(),value)
+            console.log(value)
+        } catch(error) {
+            console.log(error)
+        }
         dispatch(setLoader(false))
     }
 
